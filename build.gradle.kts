@@ -87,13 +87,13 @@ tasks.generateDevelopmentBundle {
     libraryRepositories = listOf(
         "https://repo.maven.apache.org/maven2/",
         paperMavenPublicUrl,
-        // "https://my.repo/", // This should be a repo hosting your API (in this example, 'com.example.paperfork:forktest-api')
+        // "https://my.repo/", // This should be a repo hosting your API (in this example, 'dev.fynn93.kserver:kserver-api')
     )
 }
 
 allprojects {
     // Publishing API:
-    // ./gradlew :ForkTest-API:publish[ToMavenLocal]
+    // ./gradlew :KServer-API:publish[ToMavenLocal]
     publishing {
         repositories {
             maven {

@@ -46,8 +46,8 @@ out/
 # other stuff
 run/
 
-forktest-server
-forktest-api
+kserver-server
+kserver-api
 paper-api-generator
 
 !gradle/wrapper/gradle-wrapper.jar
