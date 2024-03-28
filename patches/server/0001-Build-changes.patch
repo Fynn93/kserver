@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: MiniDigger <admin@minidigger.me>
+From: Fynn Gutic <fynn@fynn93.dev>
 Date: Sat, 12 Jun 2021 16:40:34 +0200
 Subject: [PATCH] Build changes
 
@@ -15,7 +15,7 @@ index 58da26ad2f128ba0b66f86820f60853f4be352f0..c23e342dcb54d51bd4460a89cb315856
 -    implementation(project(":paper-api"))
 -    implementation(project(":paper-mojangapi"))
 +    // ForkTest start
-+    implementation(project(":forktest-api"))
++    implementation(project(":kserver-api"))
 +    implementation("io.papermc.paper:paper-mojangapi:1.20.2-R0.1-SNAPSHOT") {
 +        exclude("io.papermc.paper", "paper-api")
 +    }
@@ -28,7 +28,7 @@ index 58da26ad2f128ba0b66f86820f60853f4be352f0..c23e342dcb54d51bd4460a89cb315856
              "Main-Class" to "org.bukkit.craftbukkit.Main",
              "Implementation-Title" to "CraftBukkit",
 -            "Implementation-Version" to "git-Paper-$implementationVersion",
-+            "Implementation-Version" to "git-ForkTest-$implementationVersion", // ForkTest
++            "Implementation-Version" to "git-KServer-$implementationVersion", // KServer
              "Implementation-Vendor" to date, // Paper
              "Specification-Title" to "Bukkit",
              "Specification-Version" to project.version,
@@ -37,7 +37,7 @@ index 58da26ad2f128ba0b66f86820f60853f4be352f0..c23e342dcb54d51bd4460a89cb315856
      block: JavaExec.() -> Unit
  ): TaskProvider<JavaExec> = register<JavaExec>(name) {
 -    group = "paper"
-+    group = "paperweight" // ForkTest
++    group = "paperweight" // KServer
      mainClass.set("org.bukkit.craftbukkit.Main")
      standardInput = System.`in`
      workingDir = rootProject.layout.projectDirectory
@@ -50,7 +50,7 @@ index 34f19ac897a30c0c4e3ab406013fcca1c8b7db93..eb6b51d5799c677e00ec132078c9305f
      @DontObfuscate
      public String getServerModName() {
 -        return "Paper"; // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
-+        return "ForkTest"; // ForkTest - ForkTest > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
++        return "KServer"; // KServer - KServer > // Paper - Paper > // Spigot - Spigot > // CraftBukkit - cb > vanilla!
      }
  
      public SystemReport fillSystemReport(SystemReport details) {
@@ -63,7 +63,7 @@ index 142d2c48239d4ebe3896218536656d116cd24d7c..2005d2b42e390e0bf6928285b393ea47
  
  public final class CraftServer implements Server {
 -    private final String serverName = "Paper"; // Paper
-+    private final String serverName = "ForkTest"; // ForkTest // Paper
++    private final String serverName = "KServer"; // KServer // Paper
      private final String serverVersion;
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");
@@ -76,7 +76,7 @@ index 774556a62eb240da42e84db4502e2ed43495be17..21f39bd0c33ef2635249298e6a247afb
          String result = "Unknown-Version";
  
 -        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/io.papermc.paper/paper-api/pom.properties");
-+        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/com.example.paperfork/forktest-api/pom.properties"); // ForkTest
++        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/dev.fynn93.kserver/kserver-api/pom.properties"); // ForkTest
          Properties properties = new Properties();
  
          if (stream != null) {

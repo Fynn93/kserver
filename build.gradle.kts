@@ -54,7 +54,7 @@ subprojects {
 }
 
 paperweight {
-    serverProject = project(":forktest-server")
+    serverProject = project(":kserver-server")
 
     remapRepo = paperMavenPublicUrl
     decompileRepo = paperMavenPublicUrl
@@ -62,10 +62,10 @@ paperweight {
     usePaperUpstream(providers.gradleProperty("paperRef")) {
         withPaperPatcher {
             apiPatchDir = layout.projectDirectory.dir("patches/api")
-            apiOutputDir = layout.projectDirectory.dir("forktest-api")
+            apiOutputDir = layout.projectDirectory.dir("kserver-api")
 
             serverPatchDir = layout.projectDirectory.dir("patches/server")
-            serverOutputDir = layout.projectDirectory.dir("forktest-server")
+            serverOutputDir = layout.projectDirectory.dir("kserver-server")
 
         }
         patchTasks.register("generatedApi") {
@@ -82,7 +82,7 @@ paperweight {
 //
 
 tasks.generateDevelopmentBundle {
-    apiCoordinates = "com.example.paperfork:forktest-api"
+    apiCoordinates = "dev.fynn93.kserver:kserver-api"
     mojangApiCoordinates = "io.papermc.paper:paper-mojangapi"
     libraryRepositories = listOf(
         "https://repo.maven.apache.org/maven2/",
