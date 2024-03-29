@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Fri, 29 Mar 2024 12:57:20 +0100
+Subject: [PATCH] Ravager doesn't need to see villager
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/monster/Ravager.java b/src/main/java/net/minecraft/world/entity/monster/Ravager.java
+index 0c11d9bef8f0129c541e30ad057612e881703b24..4a09ade3731fa89f6751f19718ead20c4f146b0b 100644
+--- a/src/main/java/net/minecraft/world/entity/monster/Ravager.java
++++ b/src/main/java/net/minecraft/world/entity/monster/Ravager.java
+@@ -81,7 +81,7 @@ public class Ravager extends Raider {
+         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
+         this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, new Class[]{Raider.class})).setAlertOthers());
+         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
+-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, true, (entityliving) -> {
++        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, false, (entityliving) -> { // KServer - Villager doesn't have to be seen
+             return !entityliving.isBaby();
+         }));
+         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, IronGolem.class, true));

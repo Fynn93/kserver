@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Fri, 29 Mar 2024 15:17:08 +0100
+Subject: [PATCH] Players in 5 block radius get bad omen
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/raid/Raider.java b/src/main/java/net/minecraft/world/entity/raid/Raider.java
+index cdbc925ef61b8b439415f0a89368227890bcecb2..5441b414b1aa04d52742e077fba2074bb49f56d3 100644
+--- a/src/main/java/net/minecraft/world/entity/raid/Raider.java
++++ b/src/main/java/net/minecraft/world/entity/raid/Raider.java
+@@ -41,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
+ import net.minecraft.world.level.GameRules;
+ import net.minecraft.world.level.Level;
+ import net.minecraft.world.level.ServerLevelAccessor;
++import net.minecraft.world.phys.AABB;
+ import net.minecraft.world.phys.Vec3;
+ 
+ public abstract class Raider extends PatrollingMonster {
+@@ -148,6 +149,11 @@ public abstract class Raider extends PatrollingMonster {
+                         entityhuman = (Player) entityliving;
+                     }
+                 }
++                // KServer start
++                else {
++                    entityhuman = this.level().getNearestPlayer(this.getEyePosition().x, this.getEyePosition().y, this.getEyePosition().z, 5.0D, false);
++                }
++                // KServer end
+ 
+                 if (!itemstack.isEmpty() && ItemStack.matches(itemstack, Raid.getLeaderBannerInstance()) && entityhuman != null) {
+                     MobEffectInstance mobeffect = entityhuman.getEffect(MobEffects.BAD_OMEN);
