@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Fri, 29 Mar 2024 09:10:08 +0100
+Subject: [PATCH] Switch to DefaultRandomPos in AI Goal
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/ai/goal/WaterAvoidingRandomStrollGoal.java b/src/main/java/net/minecraft/world/entity/ai/goal/WaterAvoidingRandomStrollGoal.java
+index 025da197d36a70cca668f76ec19647e281caab66..4c1eaf919e752dcdb05829a037396a1a857e84a8 100644
+--- a/src/main/java/net/minecraft/world/entity/ai/goal/WaterAvoidingRandomStrollGoal.java
++++ b/src/main/java/net/minecraft/world/entity/ai/goal/WaterAvoidingRandomStrollGoal.java
+@@ -2,7 +2,7 @@ package net.minecraft.world.entity.ai.goal;
+ 
+ import javax.annotation.Nullable;
+ import net.minecraft.world.entity.PathfinderMob;
+-import net.minecraft.world.entity.ai.util.LandRandomPos;
++import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+ import net.minecraft.world.phys.Vec3;
+ 
+ public class WaterAvoidingRandomStrollGoal extends RandomStrollGoal {
+@@ -22,10 +22,10 @@ public class WaterAvoidingRandomStrollGoal extends RandomStrollGoal {
+     @Override
+     protected Vec3 getPosition() {
+         if (this.mob.isInWaterOrBubble()) {
+-            Vec3 vec3 = LandRandomPos.getPos(this.mob, 15, 7);
++            Vec3 vec3 = DefaultRandomPos.getPos(this.mob, 15, 7); // KServer - Switch to DefaultRandomPos
+             return vec3 == null ? super.getPosition() : vec3;
+         } else {
+-            return this.mob.getRandom().nextFloat() >= this.probability ? LandRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
++            return this.mob.getRandom().nextFloat() >= this.probability ? DefaultRandomPos.getPos(this.mob, 10, 7) : super.getPosition(); // KServer - Switch to DefaultRandomPos
+         }
+     }
+ }
