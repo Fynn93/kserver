@@ -5,7 +5,7 @@ Subject: [PATCH] Build changes
 
 
 diff --git a/build.gradle.kts b/build.gradle.kts
-index 58da26ad2f128ba0b66f86820f60853f4be352f0..c23e342dcb54d51bd4460a89cb315856b73b63b3 100644
+index 58da26ad2f128ba0b66f86820f60853f4be352f0..4ab0579cf929ac91c5c4c1e895d54d31cdc91617 100644
 --- a/build.gradle.kts
 +++ b/build.gradle.kts
 @@ -13,8 +13,12 @@ configurations.named(log4jPlugins.compileClasspathConfigurationName) {
@@ -14,12 +14,12 @@ index 58da26ad2f128ba0b66f86820f60853f4be352f0..c23e342dcb54d51bd4460a89cb315856
  dependencies {
 -    implementation(project(":paper-api"))
 -    implementation(project(":paper-mojangapi"))
-+    // KServer start
++    // ForkTest start
 +    implementation(project(":kserver-api"))
 +    implementation("io.papermc.paper:paper-mojangapi:1.20.2-R0.1-SNAPSHOT") {
 +        exclude("io.papermc.paper", "paper-api")
 +    }
-+    // KServer end
++    // ForkTest end
      // Paper start
      implementation("org.jline:jline-terminal-jansi:3.21.0")
      implementation("net.minecrell:terminalconsoleappender:1.3.0")
@@ -42,7 +42,7 @@ index 58da26ad2f128ba0b66f86820f60853f4be352f0..c23e342dcb54d51bd4460a89cb315856
      standardInput = System.`in`
      workingDir = rootProject.layout.projectDirectory
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 34f19ac897a30c0c4e3ab406013fcca1c8b7db93..eb6b51d5799c677e00ec132078c9305fbc6cccb6 100644
+index 34f19ac897a30c0c4e3ab406013fcca1c8b7db93..015079ea74c7aa4cd6ce0b0c3263116cea44a21d 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -1866,7 +1866,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -55,7 +55,7 @@ index 34f19ac897a30c0c4e3ab406013fcca1c8b7db93..eb6b51d5799c677e00ec132078c9305f
  
      public SystemReport fillSystemReport(SystemReport details) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 142d2c48239d4ebe3896218536656d116cd24d7c..2005d2b42e390e0bf6928285b393ea47d0c6e333 100644
+index 142d2c48239d4ebe3896218536656d116cd24d7c..34afe703cc490845d025d572612669543e5eb068 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -264,7 +264,7 @@ import javax.annotation.Nullable; // Paper
@@ -68,7 +68,7 @@ index 142d2c48239d4ebe3896218536656d116cd24d7c..2005d2b42e390e0bf6928285b393ea47
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 774556a62eb240da42e84db4502e2ed43495be17..21f39bd0c33ef2635249298e6a247afba8b05742 100644
+index 774556a62eb240da42e84db4502e2ed43495be17..fdbcdc71338a770895247bfc3f274e83f1d4b940 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {
@@ -76,7 +76,7 @@ index 774556a62eb240da42e84db4502e2ed43495be17..21f39bd0c33ef2635249298e6a247afb
          String result = "Unknown-Version";
  
 -        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/io.papermc.paper/paper-api/pom.properties");
-+        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/dev.fynn93.kserver/kserver-api/pom.properties"); // KServer
++        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/dev.fynn93.kserver/kserver-api/pom.properties"); // ForkTest
          Properties properties = new Properties();
  
          if (stream != null) {

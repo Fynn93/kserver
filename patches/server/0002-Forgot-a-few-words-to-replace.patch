@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Fri, 29 Mar 2024 00:29:20 +0100
+Subject: [PATCH] Forgot a few words to replace
+
+
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 4ab0579cf929ac91c5c4c1e895d54d31cdc91617..ef5484767d100f16fab2df23b94db5d358009411 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -13,7 +13,7 @@ configurations.named(log4jPlugins.compileClasspathConfigurationName) {
+ val alsoShade: Configuration by configurations.creating
+ 
+ dependencies {
+-    // ForkTest start
++    // KServer start
+     implementation(project(":kserver-api"))
+     implementation("io.papermc.paper:paper-mojangapi:1.20.2-R0.1-SNAPSHOT") {
+         exclude("io.papermc.paper", "paper-api")
