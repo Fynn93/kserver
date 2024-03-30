@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Sun, 31 Mar 2024 00:20:37 +0100
+Subject: [PATCH] Always return 7 on getNumGroups
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/raid/Raid.java b/src/main/java/net/minecraft/world/entity/raid/Raid.java
+index eaa2943b667967f93f28d9d794d702fdaeb670ec..a0311ee5ee0e6d981d5df63516d60bfccca7a122 100644
+--- a/src/main/java/net/minecraft/world/entity/raid/Raid.java
++++ b/src/main/java/net/minecraft/world/entity/raid/Raid.java
+@@ -863,7 +863,9 @@ public class Raid {
+     }
+ 
+     public int getNumGroups(Difficulty difficulty) {
+-        switch (difficulty) {
++        // KServer - always return 7
++        return 7;
++        /*switch (difficulty) {
+             case EASY:
+                 return 3;
+             case NORMAL:
+@@ -872,7 +874,8 @@ public class Raid {
+                 return 7;
+             default:
+                 return 0;
+-        }
++        }*/
++        // KServer end - always return 7
+     }
+ 
+     public float getEnchantOdds() {
