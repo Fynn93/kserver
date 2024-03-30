@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Sat, 30 Mar 2024 20:40:15 +0100
+Subject: [PATCH] Players in 50 block radius get Hero of the Village
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/raid/Raider.java b/src/main/java/net/minecraft/world/entity/raid/Raider.java
+index 5441b414b1aa04d52742e077fba2074bb49f56d3..47f5058193b7d1863169f502e9363c20028e33a3 100644
+--- a/src/main/java/net/minecraft/world/entity/raid/Raider.java
++++ b/src/main/java/net/minecraft/world/entity/raid/Raider.java
+@@ -128,6 +128,12 @@ public abstract class Raider extends PatrollingMonster {
+                     raid.removeLeader(this.getWave());
+                 }
+ 
++                // KServer start
++                if (entity == null) {
++                    raid.addHeroOfTheVillage(this.level().getNearestPlayer(this.getEyePosition().x, this.getEyePosition().y, this.getEyePosition().z, 50.0D, false));
++                }
++                // KServer end
++
+                 if (entity != null && entity.getType() == EntityType.PLAYER) {
+                     raid.addHeroOfTheVillage(entity);
+                 }
