@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Fynn Gutic <s20_035_fyngut@dbgwiehl.de>
+Date: Sun, 31 Mar 2024 10:32:23 +0200
+Subject: [PATCH] Beacon reaches all dimensions
+
+
+diff --git a/src/main/java/net/minecraft/world/level/block/entity/BeaconBlockEntity.java b/src/main/java/net/minecraft/world/level/block/entity/BeaconBlockEntity.java
+index f13943db6f2fb923c52dcf9e8bf7000041d0a362..9150eb1c9f354af51eea03946c123a8d9691fcb6 100644
+--- a/src/main/java/net/minecraft/world/level/block/entity/BeaconBlockEntity.java
++++ b/src/main/java/net/minecraft/world/level/block/entity/BeaconBlockEntity.java
+@@ -2,10 +2,8 @@ package net.minecraft.world.level.block.entity;
+ 
+ import com.google.common.collect.ImmutableList;
+ import com.google.common.collect.Lists;
+-import java.util.Arrays;
+-import java.util.Iterator;
+-import java.util.List;
+-import java.util.Set;
++
++import java.util.*;
+ import java.util.stream.Collectors;
+ import javax.annotation.Nullable;
+ import net.minecraft.advancements.CriteriaTriggers;
+@@ -15,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+ import net.minecraft.resources.ResourceLocation;
++import net.minecraft.server.MinecraftServer;
+ import net.minecraft.server.level.ServerPlayer;
+ import net.minecraft.sounds.SoundEvent;
+ import net.minecraft.sounds.SoundEvents;
+@@ -392,7 +391,12 @@ public class BeaconBlockEntity extends BlockEntity implements MenuProvider, Name
+             byte b0 = BeaconBlockEntity.getAmplification(beaconLevel, primaryEffect, secondaryEffect);
+ 
+             int j = BeaconBlockEntity.getLevel(beaconLevel);
+-            List list = BeaconBlockEntity.getHumansInRange(world, pos, beaconLevel, blockEntity); // Paper
++            // KServer start
++            List list = new ArrayList();
++            for (Level l : MinecraftServer.getServer().getAllLevels()) {
++                list.addAll(BeaconBlockEntity.getHumansInRange(l, pos, beaconLevel, blockEntity)); // KServer > Paper
++            }
++            // KServer end
+ 
+             BeaconBlockEntity.applyEffect(list, primaryEffect, j, b0, true, pos); // Paper - BeaconEffectEvent
+ 
